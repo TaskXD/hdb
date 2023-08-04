@@ -5,6 +5,7 @@ import mysql.connector
 import pickle
 import re
 import datetime
+import pymysql
 
 # Load the best model from the pickle file
 with open('best_model.pkl', 'rb') as file:
