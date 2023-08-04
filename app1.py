@@ -60,9 +60,9 @@ def predict_label_type(features):
 
 #Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
-    connection = create_connection()
-    if connection is not None:
-        cursor = connection.cursor()
+     = create_()
+    if  is not None:
+        cursor = .cursor()
         query = "SELECT * FROM parkingDetails WHERE user_id = %s"
         data = (user_id,)
         cursor.execute(query, data)
@@ -76,7 +76,7 @@ def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, durat
             session_start = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             data = (user_id, vehicle_type, predicted_label, lot_no, duration, session_start, total_charge)
             cursor.execute(query, data)
-            connection.commit()
+            .commit()
             # Return the session start timestamp
             return session_start
 
@@ -103,14 +103,14 @@ def is_valid_account_number(number):
 
 def show_parking_details(user_id):
 
-    connection = create_connection()
-    if connection is not None:
-        cursor = connection.cursor()
+     = create_()
+    if  is not None:
+        cursor = .cursor()
         query = "SELECT * FROM parkingDetails WHERE user_id = %s"
         data = (user_id,)
         cursor.execute(query, data)
         parking_details = cursor.fetchone()
-        connection.close()
+        .close()
 
         if parking_details:
             st.write('User ID:', parking_details[0])
@@ -131,7 +131,6 @@ def check_parking_capacity():
         query = "SELECT lot_no FROM parkingDetails"
         cursor.execute(query)
         all_parked_lots = cursor.fetchall()
-        connection.close()
 
         # Create a set to store allotted lot numbers
         allotted_lots = set(lot[0] for lot in all_parked_lots)
@@ -157,7 +156,6 @@ def get_lot_number(range_option):
         query = "SELECT lot_no FROM parkingDetails"
         cursor.execute(query)
         alloted_lots = set(lot[0] for lot in cursor.fetchall())
-        connection.close()
 
         if range_option == 1:
             min_lot, max_lot = 1, 160
@@ -184,7 +182,6 @@ def report_parking(user_id, lot_no, vehicle_type, predicted_label, description):
         data = (user_id, lot_no, vehicle_type, predicted_label, description)
         cursor.execute(query, data)
         connection.commit()
-        connection.close()
         st.success('Parking report submitted successfully!')
 
 #check whether already reported or not
@@ -196,7 +193,6 @@ def check_existing_report(user_id):
         data = (user_id,)
         cursor.execute(query, data)
         existing_report = cursor.fetchone()
-        connection.close()
         return existing_report is not None
     return False
 
@@ -262,7 +258,6 @@ def main():
                         data = (email, phone, name, password, bank_name, account_no, billing_address)
                         cursor.execute(query, data)
                         connection.commit()
-                        connection.close()
                         st.success('User registered successfully!')
 
 
@@ -280,7 +275,6 @@ def main():
                 data = (email, password)
                 cursor.execute(query, data)
                 user = cursor.fetchone()
-                connection.close()
                 if user:
                     # Update the session state with user details
                     st.session_state.user_session.user_logged_in = True
@@ -308,7 +302,6 @@ def main():
             data = (user_details['user_id'],)
             cursor.execute(query, data)
             existing_parking = cursor.fetchone()
-            connection.close()
 
         # Create input fields for each feature
         st.sidebar.markdown('<h3 style="color: #3498db;">Parking Details</h3>', unsafe_allow_html=True)
