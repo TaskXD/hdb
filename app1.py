@@ -5,7 +5,7 @@ import mysql.connector
 import pickle
 import re
 import datetime
-from google cloud.sql.connector import connector 
+from google.cloud.sql.connector import connector 
 import sqlalchemy
 
 INSTANCE_CONNECTION_NAME = f"{prime-bridge-394911}:{us-central1}:{instance_name}
