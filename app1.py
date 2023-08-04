@@ -5,7 +5,6 @@ import mysql.connector
 import pickle
 import re
 import datetime
-import pymysql
 
 # Load the best model from the pickle file
 with open('best_model.pkl', 'rb') as file:
@@ -53,17 +52,15 @@ def predict_label_type(features):
     original_predictions = label_type_label_encoder.inverse_transform(predictions)
     return original_predictions
 
+# Function to create a MySQL connection
 def create_connection():
-    try:
-        connection = pymysql.connect(
-            host="34.135.251.141",  # Replace with your Google Cloud SQL public IP address
-            user="root",           # Replace with your MySQL username
-            password="123456",       # Replace with your MySQL password
-            database="hdb",  # Replace with your MySQL database name
-            port=3306                       # Default MySQL port is 3306
-        )
-        return connection
-        
+    return mysql.connector.connect(
+        host="localhost",
+        user="user",
+        password="123456",
+        database="new_schema"
+    )
+
 #Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
     connection = create_connection()
@@ -86,6 +83,7 @@ def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, durat
             connection.close()
             # Return the session start timestamp
             return session_start
+
 
 
 # Function to validate email
