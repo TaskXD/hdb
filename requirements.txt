@@ -4,3 +4,5 @@ XGBoost
 scikit-learn
 PyMySQL==1.0.2
 google-cloud-storage
+google-cloud-sql
+google-cloud-sqlalchemy
