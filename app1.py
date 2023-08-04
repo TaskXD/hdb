@@ -68,12 +68,6 @@ def create_connection():
         database=DB_NAME
     )
 
-# Create connection pool with 'creator' argument to our connection object function
-pool = sqlalchemy.create_engine(
-    "mysql+pymysql://",
-    creator=getconn,
-)
-
 # Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
     connection = create_connection()
