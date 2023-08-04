@@ -67,10 +67,10 @@ def create_connection():
         password=DB_PASS,
         database=DB_NAME
     )
-    return connection 
+        return connection
     except mysql.connector.Error as err:
         print("Error connecting to MySQL:", err)
-        return None
+        return Non
 
 
 
