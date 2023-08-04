@@ -62,7 +62,7 @@ def predict_label_type(features):
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
     connection = create_connection()
     if connection is not None:
-        cursor = .cursor()
+        cursor = connection.cursor()
         query = "SELECT * FROM parkingDetails WHERE user_id = %s"
         data = (user_id,)
         cursor.execute(query, data)
