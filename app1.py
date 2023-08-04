@@ -61,16 +61,17 @@ def predict_label_type(features):
 
 # Function to create a MySQL connection
 def create_connection():
-    return mysql.connector.connect(
-        host=INSTANCE_CONNECTION_NAME,
-        user=DB_USER,
-        password=DB_PASS,
-        database=DB_NAME
-    )
+    try:
+        connection = mysql.connector.connect(
+            host='your_mysql_host',     # Replace with the actual host name or IP address
+            user='your_username',       # Replace with your MySQL username
+            password='your_password',   # Replace with your MySQL password
+            database='your_database'    # Replace with the name of your MySQL database
+        )
         return connection
     except mysql.connector.Error as err:
         print("Error connecting to MySQL:", err)
-        return Non
+        return None
 
 
 
