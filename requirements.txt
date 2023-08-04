@@ -2,5 +2,3 @@ streamlit
 mysql-connector-python
 XGBoost
 scikit-learn
-PyMySQL==1.0.2
-sqlalchemy
