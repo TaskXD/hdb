@@ -5,7 +5,6 @@ import mysql.connector
 import pickle
 import re
 import datetime
-import os
 
 # Load the best model from the pickle file
 with open('best_model.pkl', 'rb') as file:
@@ -26,19 +25,19 @@ with open('LABEL_TYPE_label_encoder.pkl', 'rb') as file:
 
 # Create a function to preprocess the input data
 def preprocess_input_data(data):
-    
+
     # Handle VEHICLETYPE column (if it has three options 'C', 'M', and 'E')
     data['VEHICLETYPE'] = vehicletype_label_encoder.transform(data['VEHICLETYPE'])
-    
+
     # Handle TOTAL_CHARGE column (if it's numeric)
     data['TOTAL_CHARGE'] = data['TOTAL_CHARGE'].astype(float)
 
     # Handle durration column (if it's numeric)
     data['DURATION'] = data['DURATION'].astype(float)
-    
+
     # Apply the loaded scaler to scale the input features
     scaled_data = scaler.transform(data)
-    
+
     # Apply PCA to reduce feature dimensions
     pca_data = pca.transform(scaled_data)
     return pca_data
@@ -55,16 +54,13 @@ def predict_label_type(features):
 
 # Function to create a MySQL connection
 def create_connection():
-    # Read the database credentials from Streamlit secrets
-    db_credentials = st.secrets["connections.mysql"]
     return mysql.connector.connect(
-        host=db_credentials["host"],
-        port=db_credentials["port"],
-        user=db_credentials["username"],
-        password=db_credentials["password"],
-        database=db_credentials["database"]
+        host="localhost",
+        user="user",
+        password="123456",
+        database="new_schema"
     )
-    
+
 #Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
     connection = create_connection()
@@ -224,7 +220,7 @@ def main():
     # Use SessionState to store user login status and details
     if 'user_session' not in st.session_state:
         st.session_state.user_session = SessionState()
-    
+
     prediction_successful = False
     option = st.sidebar.radio('Choose an option:', ('Signup', 'Login'))
 
@@ -307,7 +303,7 @@ def main():
     if st.session_state.user_session.user_logged_in:
         # Access the user details from session state
         user_details = st.session_state.user_session.user_details
-        
+
         #check already parked, if yes, some details not shown
         connection = create_connection()
         if connection is not None:
@@ -400,14 +396,14 @@ def main():
         st.markdown('<h3 style="color: #e74c3c;">Parking Details</h3>', unsafe_allow_html=True)
         if st.button('Show my Parking Details'):
             show_parking_details(user_details['user_id'])
-        
+
         st.markdown('<h3 style="color: #e74c3c;">Parking Capacity Check</h3>', unsafe_allow_html=True)
         if st.button('Check Capacity'):
             check_parking_capacity()
 
 
         st.markdown('<h3 style="color: #e74c3c;">Report Parking</h3>', unsafe_allow_html=True)
-        
+
         with st.expander('Report Parking', expanded=False):
             lot_no = st.selectbox('Select parked car lot number', list(range(1, 501)))
             vehicle_type = st.selectbox('Select parked car vehicle type', ['C', 'M', 'E'])
