@@ -56,12 +56,11 @@ def predict_label_type(features):
 # Function to create a MySQL connection
 def create_connection():
     return mysql.connector.connect(
-        host=os.environ.get("DB_HOST", "localhost"),
-        user=os.environ.get("DB_USER", "user"),
-        password=os.environ.get("DB_PASSWORD", "123456"),
-        database=os.environ.get("DB_NAME", "new_schema")
+        host="localhost",
+        user="user",
+        password="123456",
+        database="new_schema"
     )
-
 #Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
     connection = create_connection()
