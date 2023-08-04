@@ -52,14 +52,14 @@ def predict_label_type(features):
     original_predictions = label_type_label_encoder.inverse_transform(predictions)
     return original_predictions
 
-# Function to create a MySQL connection
 def create_connection():
-    return mysql.connector.connect(
-        host="localhost",
-        user="user",
-        password="123456",
-        database="new_schema"
+    connection = pymysql.connect(
+        unix_socket='/cloudsql/prime-bridge-394911:us-central1:task',
+        user="root",
+        password="]^xU739q~uG^|`0}",
+        db="hdb"
     )
+    return connection
 
 #Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
