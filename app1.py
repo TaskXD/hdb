@@ -77,7 +77,6 @@ def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, durat
             data = (user_id, vehicle_type, predicted_label, lot_no, duration, session_start, total_charge)
             cursor.execute(query, data)
             connection.commit()
-            connection.close()
             # Return the session start timestamp
             return session_start
 
