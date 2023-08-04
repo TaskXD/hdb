@@ -2,4 +2,4 @@ streamlit
 mysql-connector-python
 XGBoost
 scikit-learn
-google-cloud-sql
+google-cloud-storage
