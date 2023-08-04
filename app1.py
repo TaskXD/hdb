@@ -60,8 +60,8 @@ def predict_label_type(features):
 
 #Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
-     = create_()
-    if  is not None:
+    connection = create_connection()
+    if connection is not None:
         cursor = .cursor()
         query = "SELECT * FROM parkingDetails WHERE user_id = %s"
         data = (user_id,)
