@@ -5,6 +5,7 @@ import mysql.connector
 import pickle
 import re
 import datetime
+import os
 
 # Load the best model from the pickle file
 with open('best_model.pkl', 'rb') as file:
@@ -55,10 +56,10 @@ def predict_label_type(features):
 # Function to create a MySQL connection
 def create_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="user",
-        password="123456",
-        database="new_schema"
+        host=os.environ.get("DB_HOST", "localhost"),
+        user=os.environ.get("DB_USER", "user"),
+        password=os.environ.get("DB_PASSWORD", "123456"),
+        database=os.environ.get("DB_NAME", "new_schema")
     )
 
 #Function to insert parking data in Database
