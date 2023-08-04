@@ -1,19 +1,22 @@
 import streamlit as st
 import pandas as pd
 import random
-import mysql.connector
+import psycopg2
 import pickle
 import re
 import datetime
-import sqlalchemy
+
+# Initialize connection.
+# Uses st.cache_resource to only run once.
+@st.cache_resource
+def create_connection():
+    return psycopg2.connect(**st.secrets["postgres"])
 
 # Load the best model from the pickle file
-# (Make sure to provide the correct file path for your 'best_model.pkl' file)
 with open('best_model.pkl', 'rb') as file:
     xgb_model = pickle.load(file)
 
 # Load the pickles for scaler, PCA, and label encoders
-# (Make sure to provide the correct file paths for your pickle files)
 with open('scaler.pkl', 'rb') as file:
     scaler = pickle.load(file)
 
@@ -28,13 +31,14 @@ with open('LABEL_TYPE_label_encoder.pkl', 'rb') as file:
 
 # Create a function to preprocess the input data
 def preprocess_input_data(data):
+
     # Handle VEHICLETYPE column (if it has three options 'C', 'M', and 'E')
     data['VEHICLETYPE'] = vehicletype_label_encoder.transform(data['VEHICLETYPE'])
 
     # Handle TOTAL_CHARGE column (if it's numeric)
     data['TOTAL_CHARGE'] = data['TOTAL_CHARGE'].astype(float)
 
-    # Handle duration column (if it's numeric)
+    # Handle durration column (if it's numeric)
     data['DURATION'] = data['DURATION'].astype(float)
 
     # Apply the loaded scaler to scale the input features
@@ -54,23 +58,7 @@ def predict_label_type(features):
     original_predictions = label_type_label_encoder.inverse_transform(predictions)
     return original_predictions
 
-# Function to create a MySQL connection
-def create_connection():
-    try:
-        connection = mysql.connector.connect(
-            host='34.135.251.141',     # Replace with the actual host name or IP address
-            user='root',       # Replace with your MySQL username
-            password='123456',   # Replace with your MySQL password
-            database='hdb'    # Replace with the name of your MySQL database
-        )
-        return connection
-    except mysql.connector.Error as err:
-        print("Error connecting to MySQL:", err)
-        return None
-
-
-
-# Function to insert parking data in Database
+#Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
     connection = create_connection()
     if connection is not None:
@@ -93,6 +81,8 @@ def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, durat
             # Return the session start timestamp
             return session_start
 
+
+
 # Function to validate email
 def is_valid_email(email):
     email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
@@ -113,6 +103,7 @@ def is_valid_account_number(number):
     return re.match(number_pattern, number)
 
 def show_parking_details(user_id):
+
     connection = create_connection()
     if connection is not None:
         cursor = connection.cursor()
@@ -126,14 +117,14 @@ def show_parking_details(user_id):
             st.write('User ID:', parking_details[0])
             st.write('Vehicle:', parking_details[1])
             st.write('Predicted Label:', parking_details[2])
-            st.write('Allotted lot no:', parking_details[3])
-            st.write('Duration:', parking_details[4])
-            st.write('Session started at:', parking_details[5])
+            st.write('Alloted lot no :', parking_details[3])
+            st.write('DURATION :', parking_details[4])
+            st.write('Seesion started at :', parking_details[5])
             st.write('Total Charge:', parking_details[6])
         else:
             st.warning("No parking details found.")
 
-# Function to check parking capacity
+#function to check capacity of parking lots
 def check_parking_capacity():
     connection = create_connection()
     if connection is not None:
@@ -155,10 +146,11 @@ def check_parking_capacity():
         percentage = (total_allotted / (total_allotted + total_not_allotted)) * 100
 
         st.subheader('Parking Capacity Check')
-        st.write(f'{percentage:.2f}% of Parking Lot is currently occupied.')
+        # st.write(f'Not Allotted Lot Numbers: {", ".join(str(lot) for lot in sorted(not_allotted_lots))}')
+        st.write(f'{percentage:.2f}%   of Parking Lot is currently occupied. ')
         st.write(f'Allotted Lot Numbers: {", ".join(str(lot) for lot in sorted(allotted_lots))}')
 
-# Function to get a lot number after checking the database
+#get a lot number after checking database
 def get_lot_number(range_option):
     connection = create_connection()
     if connection is not None:
@@ -183,7 +175,8 @@ def get_lot_number(range_option):
             if lot_no not in alloted_lots:
                 return lot_no
 
-# Function to report parking
+#Function to report parking
+
 def report_parking(user_id, lot_no, vehicle_type, predicted_label, description):
     connection = create_connection()
     if connection is not None:
@@ -195,7 +188,7 @@ def report_parking(user_id, lot_no, vehicle_type, predicted_label, description):
         connection.close()
         st.success('Parking report submitted successfully!')
 
-# Function to check whether already reported or not
+#check whether already reported or not
 def check_existing_report(user_id):
     connection = create_connection()
     if connection is not None:
