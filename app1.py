@@ -86,9 +86,6 @@ def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, durat
             connection.close()
             # Return the session start timestamp
             return session_start
-
-
-
 # Function to validate email
 def is_valid_email(email):
     email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
