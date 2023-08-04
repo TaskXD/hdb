@@ -1,10 +1,11 @@
 import streamlit as st
 import pandas as pd
 import random
-import psycopg2
+import mysql.connector
 import pickle
 import re
 import datetime
+import psycopg2
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.
@@ -58,6 +59,15 @@ def predict_label_type(features):
     original_predictions = label_type_label_encoder.inverse_transform(predictions)
     return original_predictions
 
+# Function to create a MySQL connection
+def create_connection():
+    return mysql.connector.connect(
+        host="localhost",
+        user="user",
+        password="123456",
+        database="new_schema"
+    )
+
 #Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
     connection = create_connection()
@@ -76,7 +86,7 @@ def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, durat
             session_start = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
             data = (user_id, vehicle_type, predicted_label, lot_no, duration, session_start, total_charge)
             cursor.execute(query, data)
-            .commit()
+            connection.commit()
             # Return the session start timestamp
             return session_start
 
@@ -103,14 +113,13 @@ def is_valid_account_number(number):
 
 def show_parking_details(user_id):
 
-     = create_()
-    if  is not None:
-        cursor = .cursor()
+    connection = create_connection()
+    if connection is not None:
+        cursor = connection.cursor()
         query = "SELECT * FROM parkingDetails WHERE user_id = %s"
         data = (user_id,)
         cursor.execute(query, data)
         parking_details = cursor.fetchone()
-        .close()
 
         if parking_details:
             st.write('User ID:', parking_details[0])
