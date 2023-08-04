@@ -55,10 +55,10 @@ def predict_label_type(features):
 # Function to create a MySQL connection
 def create_connection():
     return mysql.connector.connect(
-        host="localhost",
-        user="user",
+        host="34.135.251.141",
+        user="root",
         password="123456",
-        database="new_schema"
+        database="hdb"
     )
 
 #Function to insert parking data in Database
