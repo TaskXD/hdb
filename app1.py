@@ -54,13 +54,18 @@ def predict_label_type(features):
     return original_predictions
 
 # Function to create a MySQL connection
+@st.cache(allow_output_mutation=True, ttl=3600)
 def create_connection():
+    # Read the database credentials from Streamlit secrets
+    db_credentials = st.secrets["connections.mysql"]
     return mysql.connector.connect(
-        host="localhost",
-        user="user",
-        password="123456",
-        database="new_schema"
+        host=db_credentials["host"],
+        port=db_credentials["port"],
+        user=db_credentials["username"],
+        password=db_credentials["password"],
+        database=db_credentials["database"]
     )
+    
 #Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
     connection = create_connection()
