@@ -4,4 +4,5 @@ XGBoost
 scikit-learn
 PyMySQL==1.0.2
 sqlalchemy
-google-cloud-sql-connector
+MySQLdb 
+PyMySQL
