@@ -8,7 +8,7 @@ import datetime
 from google.cloud.sql.connector import connector 
 import sqlalchemy
 
-INSTANCE_CONNECTION_NAME = f"{prime-bridge-394911}:{us-central1}:{task}
+INSTANCE_CONNECTION_NAME = f"{prime-bridge-394911}:{us-central1}:{task}"
 
 DB_USER = "root"
 DB_PASS = "123456"
