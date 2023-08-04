@@ -5,6 +5,14 @@ import mysql.connector
 import pickle
 import re
 import datetime
+from google cloud.sql.connector import connector 
+import sqlalchemy
+
+INSTANCE_CONNECTION_NAME = f"{prime-bridge-394911}:{us-central1}:{instance_name}
+DB_USER = "root"
+DB_PASS = "123456"
+DB_NAME = "hdb"
+
 
 # Load the best model from the pickle file
 with open('best_model.pkl', 'rb') as file:
@@ -53,13 +61,23 @@ def predict_label_type(features):
     return original_predictions
 
 # Function to create a MySQL connection
-def create_connection():
-    return mysql.connector.connect(
-        host="34.135.251.141",
-        user="root",
-        password="123456",
-        database="hdb"
-    )
+#initialize Connector object
+connector = Connector()
+
+#function to return the database connection object 
+def getconn():
+    conn = connector.connect(
+        INSTANCE_CONNECTION_NAME,
+        "pymysql",
+        user=DB_USER,
+        password=DB_PASS,
+        db=DB_NAME )
+    return conn
+
+#create connection pool with 'creator' arguement to our connection object function 
+pool = sqlalchemy.create_engine(
+    "mysql+pymysql"://",
+creator=getconn,)
 
 #Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
