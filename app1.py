@@ -7,11 +7,6 @@ import re
 import datetime
 import sqlalchemy
 
-INSTANCE_CONNECTION_NAME = "prime-bridge-394911:us-central1:task"
-DB_USER = "root"
-DB_PASS = "123456"
-DB_NAME = "hdb"
-
 # Load the best model from the pickle file
 # (Make sure to provide the correct file path for your 'best_model.pkl' file)
 with open('best_model.pkl', 'rb') as file:
@@ -63,10 +58,10 @@ def predict_label_type(features):
 def create_connection():
     try:
         connection = mysql.connector.connect(
-            host='your_mysql_host',     # Replace with the actual host name or IP address
-            user='your_username',       # Replace with your MySQL username
-            password='your_password',   # Replace with your MySQL password
-            database='your_database'    # Replace with the name of your MySQL database
+            host='34.135.251.141',     # Replace with the actual host name or IP address
+            user='root',       # Replace with your MySQL username
+            password='123456',   # Replace with your MySQL password
+            database='hdb'    # Replace with the name of your MySQL database
         )
         return connection
     except mysql.connector.Error as err:
