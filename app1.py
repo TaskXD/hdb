@@ -77,7 +77,7 @@ def getconn():
 
 #create connection pool with 'creator' arguement to our connection object function 
 pool = sqlalchemy.create_engine(
-    "mysql+pymysql"://",
+    "mysql+pymysql://",
 creator=getconn,)
 
 #Function to insert parking data in Database
