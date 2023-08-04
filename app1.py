@@ -60,7 +60,7 @@ def predict_label_type(features):
     return original_predictions
 
 # Function to create a MySQL connection
-def getconn():
+def create_connection():
     return mysql.connector.connect(
         host=INSTANCE_CONNECTION_NAME,
         user=DB_USER,
