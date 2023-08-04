@@ -3,4 +3,4 @@ mysql-connector-python
 XGBoost
 scikit-learn
 PyMySQL==1.0.2
-google.cloud.sql.connector
+google-cloud-storage
