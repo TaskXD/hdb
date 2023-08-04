@@ -54,7 +54,6 @@ def predict_label_type(features):
     return original_predictions
 
 # Function to create a MySQL connection
-@st.cache(allow_output_mutation=True, ttl=3600)
 def create_connection():
     # Read the database credentials from Streamlit secrets
     db_credentials = st.secrets["connections.mysql"]
