@@ -54,13 +54,18 @@ def predict_label_type(features):
     return original_predictions
 
 def create_connection():
-    connection = pymysql.connect(
-        unix_socket='/cloudsql/prime-bridge-394911:us-central1:task',
-        user="root",
-        password="]^xU739q~uG^|`0}",
-        db="hdb"
-    )
-    return connection
+    try:
+        connection = pymysql.connect(
+            host="34.135.251.141",  # Replace with your Google Cloud SQL public IP address
+            user="root",           # Replace with your MySQL username
+            password="123456",       # Replace with your MySQL password
+            database="hdb",  # Replace with your MySQL database name
+            port=3306                       # Default MySQL port is 3306
+        )
+        return connection
+    except pymysql.err.OperationalError as e:
+        st.error(f"Error connecting to MySQL: {e}")
+        return None
 
 #Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
