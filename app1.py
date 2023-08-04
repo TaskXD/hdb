@@ -57,7 +57,7 @@ def create_connection():
     return mysql.connector.connect(
         host="34.135.251.141",
         user="root",
-        password="OG[o"*<Je"s%ihjX",
+        password="123456",
         database="hdb"
     )
 
