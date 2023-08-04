@@ -63,10 +63,7 @@ def create_connection():
             port=3306                       # Default MySQL port is 3306
         )
         return connection
-    except pymysql.err.OperationalError as e:
-        st.error(f"Error connecting to MySQL: {e}")
-        return None
-
+        
 #Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
     connection = create_connection()
