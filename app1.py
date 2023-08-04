@@ -7,7 +7,7 @@ import re
 import datetime
 import sqlalchemy
 
-INSTANCE_CONNECTION_NAME = "[YOUR_INSTANCE_CONNECTION_NAME]"
+INSTANCE_CONNECTION_NAME = "prime-bridge-394911:us-central1:task"
 DB_USER = "root"
 DB_PASS = "123456"
 DB_NAME = "hdb"
