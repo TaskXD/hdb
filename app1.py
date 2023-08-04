@@ -67,6 +67,12 @@ def create_connection():
         password=DB_PASS,
         database=DB_NAME
     )
+    return connection 
+    except mysql.connector.Error as err:
+        print("Error connecting to MySQL:", err)
+        return None
+
+
 
 # Function to insert parking data in Database
 def insert_parking_details(user_id, vehicle_type, predicted_label, lot_no, duration, total_charge):
