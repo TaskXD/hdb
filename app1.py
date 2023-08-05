@@ -260,7 +260,6 @@ def main():
                         connection.commit()
                         st.success('User registered successfully!')
 
-
     elif option == 'Login':
         st.subheader('Login')
         email = st.text_input('Email')
