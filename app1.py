@@ -143,7 +143,6 @@ def check_parking_capacity():
         total_not_allotted = len(not_allotted_lots)
         percentage = (total_allotted / (total_allotted + total_not_allotted)) * 100
 
-        st.subheader('Parking Capacity Check')
         # st.write(f'Not Allotted Lot Numbers: {", ".join(str(lot) for lot in sorted(not_allotted_lots))}')
         st.write(f'{percentage:.2f}%   of Parking Lot is currently occupied. ')
         st.write(f'Allotted Lot Numbers: {", ".join(str(lot) for lot in sorted(allotted_lots))}')
