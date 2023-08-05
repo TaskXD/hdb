@@ -6,6 +6,8 @@ import pickle
 import re
 import datetime
 import psycopg2
+import matplotlib.pyplot as plt
+
 
 # Initialize connection.
 # Uses st.cache_resource to only run once.
@@ -143,8 +145,16 @@ def check_parking_capacity():
         total_not_allotted = len(not_allotted_lots)
         percentage = (total_allotted / (total_allotted + total_not_allotted)) * 100
 
-        # st.write(f'Not Allotted Lot Numbers: {", ".join(str(lot) for lot in sorted(not_allotted_lots))}')
-        st.write(f'{percentage:.2f}%   of Parking Lot is currently occupied. ')
+        # Create a pie chart to visualize the parking capacity
+        labels = ['Occupied', 'Available']
+        sizes = [percentage, 100 - percentage]
+        colors = ['#ff9999', '#66b3ff']
+        fig1, ax1 = plt.subplots()
+        ax1.pie(sizes, colors=colors, labels=labels, autopct='%1.1f%%', startangle=90)
+        ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
+        st.pyplot(fig1)
+
+        # Optionally, display the allotted lot numbers as text
         st.write(f'Allotted Lot Numbers: {", ".join(str(lot) for lot in sorted(allotted_lots))}')
 
 #get a lot number after checking database
