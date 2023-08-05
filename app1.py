@@ -154,9 +154,6 @@ def check_parking_capacity():
         ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
         st.pyplot(fig1)
 
-        # Optionally, display the allotted lot numbers as text
-        st.write(f'Allotted Lot Numbers: {", ".join(str(lot) for lot in sorted(allotted_lots))}')
-
 #get a lot number after checking database
 def get_lot_number(range_option):
     connection = create_connection()
