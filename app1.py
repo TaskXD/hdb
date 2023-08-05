@@ -303,9 +303,9 @@ def main():
 
         # Create input fields for each feature
         st.sidebar.markdown('<h3 style="color: #3498db;">Parking Details</h3>', unsafe_allow_html=True)
-        VEHICLETYPE = st.sidebar.selectbox('VEHICLETYPE', ['C', 'M', 'E'])
-        TOTAL_CHARGE = st.sidebar.number_input('TOTAL_CHARGE', value=0.0)
-        DURATION = st.sidebar.number_input('DURATION', value=0)
+        VEHICLETYPE = st.sidebar.selectbox('Type of Vehicle ', ['C', 'M', 'E'])
+        TOTAL_CHARGE = st.sidebar.number_input('Total Charge', value=0.0)
+        DURATION = st.sidebar.number_input(Duration of Parking', value=0)
 
         # Combine the feature inputs into a DataFrame with a single row
         input_data = {'VEHICLETYPE': [VEHICLETYPE], 'TOTAL_CHARGE': [TOTAL_CHARGE], 'DURATION': [DURATION]}
