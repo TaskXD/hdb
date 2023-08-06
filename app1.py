@@ -413,9 +413,7 @@ def main():
                 else:
                     report_parking(user_details['user_id'], lot_no, vehicle_type, predicted_label, description)
                     st.success('Parking report submitted successfully!')
-                    
-                # Clear the fields after submitting the report
-                st.experimental_rerun()
+
     else:
         st.empty()
         st.empty()
