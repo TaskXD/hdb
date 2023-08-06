@@ -400,7 +400,7 @@ def main():
 
         with st.expander('Report Parking', expanded=False):
             lot_no = st.selectbox('Select parked car lot number', list(range(1, 501)))
-            vehicle_type = st.selectbox('Select parked car vehicle type', ['C', 'M', 'E'])
+            vehicle_type = st.selectbox('Select parked car vehicle type', ['Car', 'Motorcyle', 'Electric Car'])
             predicted_label = st.selectbox('Predicted Label', ['SHORT TERM', 'Season_W'])
             description = st.text_area('Describe the issue (optional)', height=100)
 
