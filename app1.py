@@ -408,6 +408,7 @@ def main():
             if st.button('Submit Report'):
                 report_parking(user_details['user_id'], lot_no, vehicle_type, predicted_label, description)
                 # Clear the fields after submitting the report
+                lot_no = None
                 vehicle_type = None
                 predicted_label = ""
                 description = ""
