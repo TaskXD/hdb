@@ -1,8 +1,5 @@
 streamlit
-mysql-connector-python
 XGBoost
 scikit-learn
-google-cloud-storage
-cloud-sql-python-connector==0.9.3
 psycopg2-binary
 matplotlib
