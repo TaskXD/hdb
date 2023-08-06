@@ -415,7 +415,6 @@ def main():
                 vehicle_type = None
                 predicted_label = ""
                 description = ""
-                st.success('Parking report submitted successfully!')
                 
     else:
         st.empty()
