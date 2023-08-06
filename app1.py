@@ -398,27 +398,29 @@ def main():
 
         st.markdown('<h3 style="color: #e74c3c;">Report Parking</h3>', unsafe_allow_html=True)
         
-        with st.expander('Report Parking', expanded=False):
-            lot_no = st.selectbox('Lot number misused', list(range(1, 501)))
-            vehicle_type_options = {'C': 'Car', 'M': 'Motorcycle', 'E': 'Electric Vehicle'}
-            vehicle_type = st.selectbox('Select parked car vehicle type', list(vehicle_type_options.keys()), format_func=lambda x: vehicle_type_options[x])
-            predicted_label = st.selectbox('Type of Parking of user', ['SHORT TERM', 'Season_W'])
+       with st.expander('Report Parking', expanded=False):
+            lot_no = st.selectbox('Select parked car lot number', list(range(1, 501)))
+            vehicle_type = st.selectbox('Select parked car vehicle type', ['C', 'M', 'E'])
+            predicted_label = st.selectbox('Predicted Label', ['SHORT TERM', 'Season_W'])
             description = st.text_area('Describe the issue (optional)', height=100)
 
             if st.button('Submit Report'):
-                report_parking(user_details['user_id'], lot_no, vehicle_type, predicted_label, description)
-                # Clear the fields after submitting the report
-                lot_no = None
-                vehicle_type = None
-                predicted_label = ""
-                description = ""
-                st.success('Parking report submitted successfully!')
-            else: 
-                # Clear the fields after submitting the report
-                vehicle_type = None
-                predicted_label = ""
-                description = ""
-                
+                if check_existing_report(user_details['user_id']):
+                    st.success("You have submitted another report.")
+                    report_parking(user_details['user_id'], lot_no, vehicle_type, predicted_label, description)
+                    # Clear the fields after submitting the report
+                    lot_no = None
+                    vehicle_type = None
+                    predicted_label = ""
+                    description = ""
+                else:
+                    report_parking(user_details['user_id'], lot_no, vehicle_type, predicted_label, description)
+                    # Clear the fields after submitting the report
+                    lot_no = None
+                    vehicle_type = None
+                    predicted_label = ""
+                    description = ""
+                    st.success('Parking report submitted successfully!')
     else:
         st.empty()
         st.empty()
