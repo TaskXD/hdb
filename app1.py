@@ -404,6 +404,15 @@ def main():
             predicted_label = st.selectbox('Predicted Label', ['SHORT TERM', 'Season_W'])
             description = st.text_area('Describe the issue (optional)', height=100)
             
+        with st.button('Submit Report'):
+            report_parking(user_details['user_id'], lot_no, vehicle_type, predicted_label, description)
+                    # Clear the fields after submitting the report
+                    lot_no = None
+                    vehicle_type = None
+                    predicted_label = ""
+                    description = ""
+                    st.success('Parking report submitted successfully!')
+            
     else:
         st.empty()
         st.empty()
