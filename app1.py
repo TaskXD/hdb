@@ -403,18 +403,7 @@ def main():
             vehicle_type = st.selectbox('Select parked car vehicle type', ['C', 'M', 'E'])
             predicted_label = st.selectbox('Predicted Label', ['SHORT TERM', 'Season_W'])
             description = st.text_area('Describe the issue (optional)', height=100)
-
-            if st.button('Submit Report'):
-                if check_existing_report(user_details['user_id']):
-                    st.warning("You have already submitted a report.")
-                else:
-                    report_parking(user_details['user_id'], lot_no, vehicle_type, predicted_label, description)
-                    # Clear the fields after submitting the report
-                    lot_no = None
-                    vehicle_type = None
-                    predicted_label = ""
-                    description = ""
-                    st.success('Parking report submitted successfully!')
+            
     else:
         st.empty()
         st.empty()
