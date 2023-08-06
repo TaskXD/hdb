@@ -407,7 +407,7 @@ def main():
 
             if st.button('Submit Report'):
                 if check_existing_report(user_details['user_id']):
-                    st.success("You have submitted another report.")
+                    st.success("You have submitted another report successfully!")
                     report_parking(user_details['user_id'], lot_no, vehicle_type, predicted_label, description)
                     # Clear the fields after submitting the report
                     lot_no = None
