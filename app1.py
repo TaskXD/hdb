@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 import random
-import mysql.connector
 import pickle
 import re
 import datetime
@@ -258,7 +257,7 @@ def main():
                     if existing_user:
                         st.error("This email is already registered. Please use a different email.")
                     else:
-                        # Store the user details in the MySQL database
+                        # Store the user details in the PostgreSQL database
                         query = "INSERT INTO userDetails (email, phone, name, password, bank_name, account_no, billing_address) VALUES (%s, %s, %s, %s, %s, %s, %s)"
                         data = (email, phone, name, password, bank_name, account_no, billing_address)
                         cursor.execute(query, data)
@@ -271,7 +270,7 @@ def main():
         password = st.text_input('Password', type='password')
 
         if st.button('Login'):
-            # Check the user credentials in the MySQL database
+            # Check the user credentials in the PostgreSQL database
             connection = create_connection()
             if connection is not None:
                 cursor = connection.cursor()
