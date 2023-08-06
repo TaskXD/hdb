@@ -362,9 +362,9 @@ def main():
                 if VEHICLETYPE == 'M':
                     st.markdown('<p style="color: #2ecc71; font-size: 18px;">Allocated Parking Lot: Parking Lots 481 – 500</p>', unsafe_allow_html=True)
                 elif predicted_label == 'season_W':
-                    st.markdown('<p style="color: #e74c3c; font-size: 18px;">Allocated Parking Lot: Parking Lots 161 – 480</p>', unsafe_allow_html=True)
-                elif predicted_label == 'SHORT TERM':
                     st.markdown('<p style="color: #e74c3c; font-size: 18px;">Allocated Parking Lot: Parking Lots 1 – 160</p>', unsafe_allow_html=True)
+                elif predicted_label == 'SHORT TERM':
+                    st.markdown('<p style="color: #e74c3c; font-size: 18px;">Allocated Parking Lot: Parking Lots 161 – 480</p>', unsafe_allow_html=True)
         # Use a button to wrap the report parking input fields
 
             st.markdown('<style>body{color: #444;}</style>', unsafe_allow_html=True)
