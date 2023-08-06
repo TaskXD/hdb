@@ -310,7 +310,7 @@ def main():
         # Create input fields for each feature
         st.sidebar.markdown('<h3 style="color: #3498db;">Parking Details</h3>', unsafe_allow_html=True)
         vehicle_type_options = {'Car': 'C', 'Motorcycle': 'M', 'Electric Vehicle': 'E'}
-        VEHICLETYPE = st.sidebar.selectbox('Type of Vehicle', list(vehicle_type_options.keys()), format_func=lambda x: vehicle_type_options[x])
+        VEHICLETYPE = st.sidebar.selectbox('Type of Vehicle', list(vehicle_type_options.keys()), format_func=lambda x: vehicle_type_options[x], key='vehicle_type_select')
         TOTAL_CHARGE = st.sidebar.number_input('Total Charge', value=0.0)
         DURATION = st.sidebar.number_input('Duration of Parking', value=0)
 
@@ -401,7 +401,7 @@ def main():
         with st.expander('Report Parking', expanded=False):
             lot_no = st.selectbox('Lot number misused', list(range(1, 501)))
             vehicle_type_options = {'Car': 'C', 'Motorcycle': 'M', 'Electric Vehicle': 'E'}
-            VEHICLETYPE = st.sidebar.selectbox('Type of Vehicle', list(vehicle_type_options.keys()), format_func=lambda x: vehicle_type_options[x])
+            VEHICLETYPE = st.sidebar.selectbox('Type of Vehicle', list(vehicle_type_options.keys()), format_func=lambda x: vehicle_type_options[x], key='vehicle_type_select')
             predicted_label = st.selectbox('Type of Parking of user', ['SHORT TERM', 'Season_W'])
             description = st.text_area('Describe the issue (optional)', height=100)
 
