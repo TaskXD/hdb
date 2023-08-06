@@ -1,3 +1,5 @@
+Parking report submitted successfully!
+
 import streamlit as st
 import pandas as pd
 import random
@@ -188,7 +190,6 @@ def report_parking(user_id, lot_no, vehicle_type, predicted_label, description):
         data = (user_id, lot_no, vehicle_type, predicted_label, description)
         cursor.execute(query, data)
         connection.commit()
-        st.success('Parking report submitted successfully!')
 
 #check whether already reported or not
 def check_existing_report(user_id):
